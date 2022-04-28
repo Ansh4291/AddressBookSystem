@@ -1,27 +1,51 @@
 package com.bridgelabz;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class AddressBookSystem {
+
+       ArrayList <Contacts> contactsDetails = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+
+        public void addDetails(){
+            Contacts info = new Contacts();
+            System.out.println("Enter your First Name");
+            info.setFirstName(sc.nextLine());
+
+            System.out.println("Enter Last Name");
+            info.setLastName(sc.nextLine());
+
+            System.out.println("Enter Your Address");
+            info.setAddress(sc.nextLine());
+
+            System.out.println("Enter your city");
+            info.setCity(sc.nextLine());
+
+            System.out.println("Enter your State");
+            info.setState(sc.nextLine());
+
+            System.out.println("Enter your zip Code");
+            info.setZip(sc.nextLine());
+
+            System.out.println("Enter your Contacts Number");
+            info.setContactNo(sc.nextLine());
+
+            System.out.println("Enter your Email Id");
+            info.setEmail(sc.nextLine());
+
+            contactsDetails.add(info);
+        }
+        public void dispalyConatcts(){
+            System.out.println(contactsDetails);
+        }
     public static void main(String[] args) {
 
         System.out.println("Welcome to the Address book System project......:-)");
 
-        Contacts contacts = new Contacts( );
-        contacts.setFirstName("Anshul");
-        System.out.println(contacts.getFirstName());
-        contacts.setLastName("Rathore");
-        System.out.println(contacts.getLastName());
-        contacts.setAddress("Talwandi");
-        System.out.println(contacts.getAddress());
-        contacts.setCity("Kota");
-        System.out.println(contacts.getCity());
-        contacts.setState("Rajasthan");
-        System.out.println(contacts.getState());
-        contacts.setZip("324005");
-        System.out.println(contacts.getZip());
-        contacts.setContactNo("8764314432");
-        System.out.println(contacts.getContactNo());
-        contacts.setEmail("anshulrathore1995@gmail.com");
-        System.out.println(contacts.getEmail());
-
+        AddressBookSystem person1 = new AddressBookSystem();
+        person1.addDetails();
+        person1.dispalyConatcts();
     }
+
 }
