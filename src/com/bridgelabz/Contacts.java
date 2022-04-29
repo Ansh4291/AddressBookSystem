@@ -13,7 +13,7 @@ public class Contacts {
             this.contactNo = contactNo;
             this.email = email;
         }
-        public String getFirstName () {
+        public  String getFirstName() {
             return firstName;
         }
         public void setFirstName (String firstName){
