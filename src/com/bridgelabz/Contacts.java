@@ -2,18 +2,8 @@ package com.bridgelabz;
 
 public class Contacts {
     private String firstName, lastName , address, city, state, zip, contactNo, email;
-        public void Contacts (String firstName, String lastName , String address, String city, String state, String zip,
-                String contactNo, String email){
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.address = address;
-            this.city = city;
-            this.state = state;
-            this.zip = zip;
-            this.contactNo = contactNo;
-            this.email = email;
-        }
-        public  String getFirstName() {
+
+        public String getFirstName() {
             return firstName;
         }
         public void setFirstName (String firstName){
