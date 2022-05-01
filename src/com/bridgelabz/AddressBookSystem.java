@@ -48,6 +48,7 @@ public class AddressBookSystem {
     public static void dispalyConatcts() {
         for (Contacts contactsDetailsValue : contactsDetails) {
             System.out.println(contactsDetailsValue);
+            System.out.println("---------------------------");
         }
 
     }
@@ -122,6 +123,7 @@ public class AddressBookSystem {
                 default:
                     System.out.println("Invalid number!");
             }
+            System.out.println("details updated");
         } else {
             System.out.println("No record found!");
 
@@ -140,7 +142,7 @@ public class AddressBookSystem {
         dispalyConatcts();
     }
     public static void menuChoose(AddressBookSystem addressDetails){
-
+            Scanner sc = new Scanner(System.in);
         int chooseNumber;
        do {
            System.out.println("Enter the no as u want too choose to perform the certain task");
