@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class AddressBookSystem {
     //Creating array List
-    static ArrayList<Contacts> contactsDetails = new ArrayList<>();
+    static ArrayList<Contacts> contactsDetails = new ArrayList();
     //Taking Scanner Class Object
     static Scanner sc = new Scanner(System.in);
 
@@ -45,7 +45,7 @@ public class AddressBookSystem {
         System.out.println("Contacts details added");
     }
 
-    public static void dispalyConatcts() {
+    public void dispalyConatcts() {
         for (Contacts contactsDetailsValue : contactsDetails) {
             System.out.println(contactsDetailsValue);
             System.out.println("---------------------------");
@@ -76,117 +76,120 @@ public class AddressBookSystem {
                     System.out.println("Enter the first name You want to update");
                     String updatedFirstName = sc.next();
                     contact.setFirstName(updatedFirstName);
-                    dispalyConatcts();
+//                    dispalyConatcts();
                     break;
                 case 2:
                     System.out.println("Enter the Last NAme You want to update");
                     String updatedLastName = sc.next();
                     contact.setLastName(updatedLastName);
-                    dispalyConatcts();
+//                    dispalyConatcts();
                     break;
                 case 3:
                     System.out.println("Enter the Address You want to update");
                     String updatedAddress = sc.next();
                     contact.setAddress(updatedAddress);
-                    dispalyConatcts();
+//                    dispalyConatcts();
                     break;
                 case 4:
                     System.out.println("Enter the City You want to update");
                     String updatedCity = sc.next();
                     contact.setCity(updatedCity);
-                    dispalyConatcts();
+//                    dispalyConatcts();
                     break;
                 case 5:
                     System.out.println("Enter the State You want to update");
                     String updatedState = sc.next();
                     contact.setState(updatedState);
-                    dispalyConatcts();
+//                    dispalyConatcts();
                     break;
                 case 6:
                     System.out.println("Enter the Zip code You want to update");
                     String updatedZipCode = sc.next();
                     contact.setZip(updatedZipCode);
-                    dispalyConatcts();
+//                    dispalyConatcts();
                     break;
                 case 7:
                     System.out.println("Enter the Contact numberYou want to update");
                     String updatedContact = sc.next();
                     contact.setContactNo(updatedContact);
-                    dispalyConatcts();
+//                    dispalyConatcts();
                     break;
                 case 8:
                     System.out.println("Enter the email You want to update");
                     String updatedEmail = sc.next();
                     contact.setEmail(updatedEmail);
-                    dispalyConatcts();
+//                    dispalyConatcts();
                     break;
                 default:
                     System.out.println("Invalid number!");
             }
             System.out.println("details updated");
-        } else {
+        } else
             System.out.println("No record found!");
 
-        }
     }
 
 
 }
-    public void deleteContact(){
-        Iterator<Contacts>contactData = contactsDetails.iterator();
-        while (contactData.hasNext()){
-            Contacts contact= contactData.next();
-            contactData.remove();
+    public void deleteContact()
+    {
+        System.out.println("Enter First Name for which you want to delete contact: ");
+        String firstname = sc.next();
+
+        Iterator<Contacts> removeContact = contactsDetails.iterator();
+        /*  Checking the next element where
+         *   condition holds true till there is single element
+         *   in the List using hasNext() method
+         */
+        while (removeContact.hasNext()){
+            /*  Move cursor to next element */
+            Contacts nextElement = removeContact.next();
+            if (nextElement.getFirstName().equals(firstname) ) {
+                removeContact.remove();
+                System.out.println("Contact is removed!");
+                break;
+            }
+            else {
+                System.out.println("Contact not found.");
+            }
         }
-        System.out.println("Contact is removed!");
-        dispalyConatcts();
     }
-    public static void menuChoose(AddressBookSystem addressDetails){
-            Scanner sc = new Scanner(System.in);
-        int chooseNumber;
-       do {
-           System.out.println("Enter the no as u want too choose to perform the certain task");
-           System.out.println("1. Add Deatils \n2. Edit Details \n3. Delete Details \n4. Display Details \n5. exit ");
-            chooseNumber = sc.nextInt();
-
-           switch (chooseNumber){
-               case 1:
-                   System.out.println("Add Details");
-                  addressDetails.addDetails();
-                   break;
-               case 2:
-                   System.out.println("Edit details");
-                  addressDetails.editDetails();
-                   break;
-               case 3:
-                   System.out.println("Delete Details");
-                   addressDetails.deleteContact();
-                   break;
-               case 4:
-                   System.out.println("Display details");
-                   dispalyConatcts();
-                   break;
-               case 5:
-                   System.out.println("Exit");
-                   break;
-               default:
-                   System.out.println("invalid Option choose");
-                   break;
-           }
-//           System.out.println("Do you want to contiune if yes press 1");
-//           option=sc.nextInt();
-       }while (chooseNumber !=5 );
-
-
-    }
-            // create display contacts method to display the contact details
 
     public static void main(String[] args) {
 
         System.out.println("Welcome to the Address book System project......:-)");
 
         AddressBookSystem addressDetails = new AddressBookSystem();
-        menuChoose(addressDetails);
+        while (true){
+            System.out.println("Enter the no as u want too choose to perform the certain task");
+            System.out.println("1. Add Deatils \n2. Edit Details \n3. Delete Details \n4. Display Details \n5. exit ");
+            int chooseNumber;
+            chooseNumber = sc.nextInt();
+            switch (chooseNumber){
+                case 1:
+                    addressDetails.addDetails();
+                    System.out.println("Added Successfully");
+                    break;
+                case 2:
+                    System.out.println("Edit Successfully");
+                    addressDetails.editDetails();
+                    break;
+                case 3:
+                    System.out.println("Delete Details");
+                    addressDetails.deleteContact();
+                    break;
+                case 4:
+                    System.out.println("Display details");
+                    addressDetails.dispalyConatcts();
+                    break;
+                case 5:
+                    System.out.println("Exit");
+                    break;
+                default:
+                    System.out.println("invalid Option choose");
+                    break;
+            }
+        }
 
 
     }
