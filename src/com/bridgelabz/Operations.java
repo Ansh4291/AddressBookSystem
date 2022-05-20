@@ -58,6 +58,18 @@ public class Operations {
         System.out.printf("No record found:");
         return null;
     }
+    public void SearchInSingleBook(ArrayList<Contacts> contactdetails){
+        System.out.println("Enter name of city or state to search");
+        String name=sc.next();
+        ArrayList<Contacts> contacts=new ArrayList<>();
+        for (Contacts contact:contactdetails){
+            if(contact.getCity().equals(name)||contact.getState().equals(name))
+            {
+                contacts.add(contact);
+            }
+            System.out.println(contact);
+        }
+    }
 
  /*
     Create addDetails method
@@ -283,6 +295,10 @@ public class Operations {
                     operations.dispalyConatcts(contactsDetails);
                     break;
                 case 5:
+                    System.out.println("view Persons by city or state");
+                    operations.SearchInSingleBook(contactsDetails);
+                    break;
+                case 6:
                     System.out.println("Exit");
                     break;
                 default:
