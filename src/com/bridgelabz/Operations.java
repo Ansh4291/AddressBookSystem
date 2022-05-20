@@ -1,9 +1,6 @@
 package com.bridgelabz;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
 
 public class Operations {
     //Creating array List
@@ -11,26 +8,57 @@ public class Operations {
     //Taking Scanner Class Object
     static Scanner sc = new Scanner(System.in);
     static HashMap<String, ArrayList<Contacts>> hashmap = new HashMap<>();
-//    method For Adding Multiple Address Book
-    public static void AddressBook(Operations operations) {
-        int num;
-        do {
-            System.out.println("Enter Name For Address Book");
-            String AddressBookName = sc.next();
-            if (hashmap.containsKey(AddressBookName)) {
-                System.out.println("The AddressBook already contains");
-                break;
-            } else {
-                ArrayList<Contacts> contactDetails = new ArrayList<>();
-                operations.menuChoose(operations, contactDetails);
-                hashmap.put(AddressBookName, contactDetails);
-            }
-            System.out.println("AddressBook Added" + hashmap + " ");
-            System.out.println("Do You Want To Continue the Press 1");
-            num = sc.nextInt();
-        } while (num == 1);
 
+    //    method For Adding Multiple Address Book
+    public static void AddressBook(Operations operations) {
+        System.out.println("choice");
+        System.out.println("1) Add Address Book \n2)Search");
+        int ch = sc.nextInt();
+        switch (ch) {
+            case 1:
+                int ans;
+                do {
+                    System.out.println("Enter Name For Address Book");
+                    String AddressBookName = sc.next();
+//                contactsDetails.add(AddressBookName);
+                    if (hashmap.containsKey(AddressBookName)) {
+                        System.out.println("The AddressBook already contains");
+                        break;
+                    } else {
+                        ArrayList<Contacts> contactDetails1 = new ArrayList<>();
+                        operations.menuChoose(operations, contactDetails1);
+                        hashmap.put(AddressBookName,contactDetails1);
+                    }
+                    System.out.println("AddressBook Added" + hashmap + " ");
+                    System.out.println("1)Add New Address Book \n2)Search Contact by City or State \n3)Exit");
+                    ans = sc.nextInt();
+                } while (ans == 1);
+            case 2:
+                System.out.println("Enter name to search ");
+                String name = sc.next();
+                SearchInMultipleBook(name);
+                break;
+            default:
+        }
     }
+    private static List<Contacts> SearchInMultipleBook(String name) {
+        for (Map.Entry<String, ArrayList<Contacts>> entry : hashmap.entrySet()) {
+            for (Contacts contacts1 : entry.getValue()) {
+                if (contacts1.getCity().equals(name) || contacts1.getState().equals(name)) {
+                    System.out.println("\nAddress Book Name :" + entry.getKey());
+                    System.out.println("First Name :" + contacts1.getFirstName());
+                    System.out.println("Last Name :" + contacts1.getLastName());
+                    System.out.println("Mail-ID :" + contacts1.getEmail());
+                    System.out.println("Address :" + contacts1.getAddress());
+                    System.out.println("City Name :" + contacts1.getCity());
+                    System.out.println("Contact Number :" + contacts1.getContactNo());
+                }
+            }
+        }
+        System.out.printf("No record found:");
+        return null;
+    }
+
  /*
     Create addDetails method
     create info contact Class object
@@ -66,6 +94,7 @@ public class Operations {
 
             contactsDetails.add(info);
             System.out.println("Contacts details added");
+            return contactsDetails;
         } else {
             System.out.println("Enter your first name");
             String firstName = sc.next();
@@ -80,9 +109,9 @@ public class Operations {
                     System.out.println("Your Name is already present ");
                     Operations.addDetails(contactsDetails);
                 }
-            }
-            {
-                info.setFirstName(sc.next());
+
+
+                info.setFirstName(firstName);
                 System.out.println("Enter Last Name");
                 info.setLastName(sc.next());
                 System.out.println("Enter contact Number:");
@@ -98,21 +127,37 @@ public class Operations {
                 System.out.println("Enter Zip Code:");
                 info.setZip(sc.next());
                 contactsDetails.add(info);
+                return contactsDetails;
             }
         }
         return contactsDetails;
     }
+
+
+
     public void dispalyConatcts(ArrayList<Contacts> contactsDetails) {
         for (Contacts contactsDetailsValue : Operations.contactsDetails) {
             System.out.println(contactsDetailsValue);
             System.out.println("---------------------------");
         }
     }
+
+    public static void displayAddressBook() {
+        for (Map.Entry<String, ArrayList<Contacts>> entry : hashmap.entrySet())
+            for (Contacts v : entry.getValue()) {
+                System.out.println("\n Address Book=>" + entry.getKey());
+                System.out.println("FirstName \t LastName \t Email \t Contact Number \t Address \t City \t State \t Zip Code ");
+                System.out.println(v.getFirstName() + "\t" + v.getLastName() + "\t" + v.getEmail() + "\t" + v.getContactNo() + "\t" + v.getAddress() +
+                        "\t" + v.getCity() + "\t" + v.getState() + "\t" + v.getZip());
+
+            }
+    }
+
     /*
         Another method is to create editDetails
         Edit details you want to editing in the respective information by using switch case
      */
-    public void editDetails(ArrayList<Contacts> contactsDetails) {
+    public void editDetails(ArrayList<Contacts> contactsDetails1) {
         System.out.println("Enter the first name you want to edit ");
         String searchFirstName = sc.next();
         // taking for each loop
@@ -206,7 +251,8 @@ public class Operations {
             }
         }
     }
-    public static void menuChoose(Operations operations, ArrayList<Contacts> contactDetails){
+
+    public static void menuChoose(Operations operations, ArrayList<Contacts> contactsDetails) {
         Scanner sc = new Scanner(System.in);
 
         int chooseNumber;
@@ -215,7 +261,7 @@ public class Operations {
             System.out.println("1. Add Deatils \n2. Edit Details \n3. Delete Details \n4. Display Details \n5. exit ");
             chooseNumber = sc.nextInt();
 
-            switch (chooseNumber){
+            switch (chooseNumber) {
                 /*  Add contact details in address book */
                 case 1:
                     System.out.println("Add Details");
@@ -243,6 +289,6 @@ public class Operations {
                     System.out.println("invalid Option choose");
                     break;
             }
-        }while (chooseNumber !=5 );
+        } while (chooseNumber != 5);
     }
 }
