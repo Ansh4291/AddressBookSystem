@@ -11,35 +11,47 @@ public class Operations {
 
     //    method For Adding Multiple Address Book
     public static void AddressBook(Operations operations) {
-        System.out.println("choice");
-        System.out.println("1) Add Address Book \n2)Search");
-        int ch = sc.nextInt();
-        switch (ch) {
-            case 1:
-                int ans;
-                do {
-                    System.out.println("Enter Name For Address Book");
-                    String AddressBookName = sc.next();
-//                contactsDetails.add(AddressBookName);
-                    if (hashmap.containsKey(AddressBookName)) {
-                        System.out.println("The AddressBook already contains");
-                        break;
-                    } else {
-                        ArrayList<Contacts> contactDetails1 = new ArrayList<>();
-                        operations.menuChoose(operations, contactDetails1);
-                        hashmap.put(AddressBookName,contactDetails1);
-                    }
-                    System.out.println("AddressBook Added" + hashmap + " ");
-                    System.out.println("1)Add New Address Book \n2)Search Contact by City or State \n3)Exit");
-                    ans = sc.nextInt();
-                } while (ans == 1);
-            case 2:
-                System.out.println("Enter name to search ");
-                String name = sc.next();
-                SearchInMultipleBook(name);
-                break;
-            default:
-        }
+        int xyz = 0;
+        do {
+            System.out.println("1) Add Address Book \n2)Search \n3)Display Adress book \n4) countPersonFromSame_City_State");
+            System.out.println("choice");
+            int ch = sc.nextInt();
+            switch (ch) {
+                case 1:
+                    int ans;
+                    do {
+                        System.out.println("Enter Name For Address Book");
+                        String AddressBookName = sc.next();
+                        if (hashmap.containsKey(AddressBookName)) {
+                            System.out.println("The AddressBook already contains");
+                            break;
+                        } else {
+                            ArrayList<Contacts> contactDetails1 = new ArrayList<>();
+                            operations.menuChoose(operations, contactDetails1);
+                            hashmap.put(AddressBookName, contactDetails1);
+                        }
+                        System.out.println("AddressBook Added" + hashmap + " ");
+                        System.out.println("do you want to create another address book if press 1.");
+                        ans = sc.nextInt();
+                    } while (ans == 1);
+                    break;
+                case 2:
+                    System.out.println("Enter name to search ");
+                    String name = sc.next();
+                    SearchInMultipleBook(name);
+                    break;
+                case 3:
+                    displayAddressBook();
+                    break;
+                case 4:
+                    System.out.println("Enter city name or state name to Count Persons belonging from same city or state");
+                    String countname = sc.next();
+                    countFromSame_City_State(countname);
+                    break;
+                default:
+            }System.out.println("if u had dont create multiple address book press 1.");
+            xyz = sc.nextInt();
+        }while (xyz == 1);
     }
     private static List<Contacts> SearchInMultipleBook(String name) {
         for (Map.Entry<String, ArrayList<Contacts>> entry : hashmap.entrySet()) {
@@ -69,6 +81,21 @@ public class Operations {
             }
             System.out.println(contact);
         }
+    }
+    //Counting how many persons belonging from same city or state
+
+    public static List<Contacts> countFromSame_City_State(String name){
+        int count=0;
+
+        for (Map.Entry<String, ArrayList<Contacts>> entry : hashmap.entrySet()){
+            for (Contacts v:entry.getValue()){
+                if (v.getCity().equals(name)|| v.getState().equals(name)){
+                    count++;
+                }
+            }
+        }
+        System.out.printf(count+"\t\nPersons belonging From =>"+name+ " \n");
+        return null;
     }
 
  /*
@@ -270,7 +297,7 @@ public class Operations {
         int chooseNumber;
         do {
             System.out.println("Enter the no as u want too choose to perform the certain task");
-            System.out.println("1. Add Deatils \n2. Edit Details \n3. Delete Details \n4. Display Details \n5. exit ");
+            System.out.println("1. Add Deatils \n2. Edit Details \n3. Delete Details \n4. Display Details \n5. SearchInSingleBook \n6. EXIT ");
             chooseNumber = sc.nextInt();
 
             switch (chooseNumber) {
@@ -305,6 +332,6 @@ public class Operations {
                     System.out.println("invalid Option choose");
                     break;
             }
-        } while (chooseNumber != 5);
+        } while (chooseNumber != 6);
     }
 }
