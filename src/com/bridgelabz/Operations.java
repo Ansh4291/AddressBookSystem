@@ -1,6 +1,7 @@
 package com.bridgelabz;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Operations {
     //Creating array List
@@ -13,7 +14,7 @@ public class Operations {
     public static void AddressBook(Operations operations) {
         int xyz = 0;
         do {
-            System.out.println("1) Add Address Book \n2)Search \n3)Display Adress book \n4) countPersonFromSame_City_State");
+            System.out.println("1) Add Address Book \n2)Search \n3)Display Adress book \n4) countPersonFromSame_City_State \n5) Sorted Contacts");
             System.out.println("choice");
             int ch = sc.nextInt();
             switch (ch) {
@@ -48,11 +49,15 @@ public class Operations {
                     String countname = sc.next();
                     countFromSame_City_State(countname);
                     break;
+                case 5:
+                    System.out.println("Sorted Contacts are alphabatically :- ");
+                    sortConatct(hashmap);
                 default:
             }System.out.println("if u had dont create multiple address book press 1.");
             xyz = sc.nextInt();
         }while (xyz == 1);
     }
+
     private static List<Contacts> SearchInMultipleBook(String name) {
         for (Map.Entry<String, ArrayList<Contacts>> entry : hashmap.entrySet()) {
             for (Contacts contacts1 : entry.getValue()) {
@@ -97,7 +102,16 @@ public class Operations {
         System.out.printf(count+"\t\nPersons belonging From =>"+name+ " \n");
         return null;
     }
-
+    public static void sortConatct(HashMap<String, ArrayList<Contacts>> multipleAddressBook) {
+        for(Map.Entry<String,ArrayList<Contacts>> personSorted : multipleAddressBook.entrySet()){
+            List<Contacts> sortedContacts;
+            sortedContacts = personSorted.getValue().stream().sorted(Comparator.comparing(contacts -> contacts.getFirstName() + contacts.getLastName())).collect(Collectors.toList());
+            System.out.println("Sorted Contacts By Name : ");
+            for (Contacts item : sortedContacts){
+                System.out.println(item.toString());
+            }
+         }
+    }
  /*
     Create addDetails method
     create info contact Class object
